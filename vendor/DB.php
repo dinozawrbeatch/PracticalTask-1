@@ -29,13 +29,23 @@ class DB
         $this->db = null;
     }
 
-    public function addUser($email, $password){
+    public function addUser($email, $password)
+    {
         $query = "INSERT INTO `users` (`email`, `password`) VALUES ('$email', '$password')";
         return $this->db->query($query);
     }
 
-    public function getUser($email){
+    public function getUser($email)
+    {
         $query = "SELECT * FROM `users` WHERE email = '$email'";
         return $this->db->query($query)->fetchObject();
+    }
+
+    public function addComplaint($email, $problem_text, $gender, $mailing)
+    {
+        $user_id = $this->getUser($email)->id;
+        $query = "INSERT INTO `complaint` (`user_id`, `problem_text`, `gender`, `mailing`)
+                VALUES ('$user_id', '$problem_text', '$gender', '$mailing')";
+        return $this->db->query($query);
     }
 }

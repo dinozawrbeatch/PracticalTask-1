@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,8 +31,8 @@ session_start();
         </div>
         <p class="text-danger ">
             <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
             ?>
         </p>
         <button type="submit" class="btn btn-primary">Зарегистрироваться</button>

@@ -11,25 +11,33 @@
 </head>
 <body>
     <div class="container align-items-center w-25">
-        <form action="" method="">
+        <form action="Feedback.php" method="post">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="email" class="form-label">Электронная почта</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
 
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
             </div>
             <button type="submit" class="btn btn-primary">Войти</button>
             <p class="m-2">У вас нет аккаунта? - <a href="register.php">зарегиструйтесь</a>!</p>
-            <p class="text-success">
+            <p class="text-danger">
             <?php
                 echo $_SESSION['message'];
+                echo $_SESSION['incorrectData'];
+                unset($_SESSION['incorrectData']);
                 unset($_SESSION['message']);
             ?>
+            </p>
+            <p class="text-success">
+                <?php
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                ?>
             </p>
         </form>
     </div>
