@@ -9,8 +9,8 @@ $email = $_POST['email'];
 $problem_text = $_POST['problem'];
 $gender = $_POST['gender'];
 $mailing = $_POST['mailing'];
-if ($email && $problem_text && $gender) {
-    $_SESSION['addComplaint'] = 'Жалоба была отпрвлена';
+if (filter_var($email, FILTER_VALIDATE_EMAIL) && is_string($problem_text) && is_string($gender)) {
+    $_SESSION['addComplaint'] = 'Жалоба была отправлена';
     $db->addComplaint($email, $problem_text, $gender, $mailing);
 } else {
     $_SESSION['invalidData'] = 'Заполните все поля';
@@ -21,6 +21,7 @@ if (!$_POST['success']) {
     $_SESSION['success'] = 'Согласитесь на обработку данных, чтобы отправить жалобу';
     header('Location: ../Feedback.php');
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,8 +36,8 @@ if (!$_POST['success']) {
 <body>
 <h1 class="text-success">
     <?php
-        echo $_SESSION['addComplaint'];
-        unset($_SESSION['addComplaint']);
+    echo $_SESSION['addComplaint'];
+    unset($_SESSION['addComplaint']);
     ?>
 </h1>
 </body>

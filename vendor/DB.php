@@ -41,9 +41,19 @@ class DB
         return $this->db->query($query)->fetchObject();
     }
 
+    private function _filterText($str): string
+    {
+        $str = str_replace("'", "\'", $str);
+        str_replace('"', '\"', $str);
+        str_replace('%', '\%', $str);
+        str_replace('  ', ' ', $str);
+        return trim($str);
+    }
+
     public function addComplaint($email, $problem_text, $gender, $mailing)
     {
         $user_id = $this->getUser($email)->id;
+        $problem_text = $this->_filterText($problem_text);
         $query = "INSERT INTO `complaint` (`user_id`, `problem_text`, `gender`, `mailing`)
                 VALUES ('$user_id', '$problem_text', '$gender', '$mailing')";
         return $this->db->query($query);
